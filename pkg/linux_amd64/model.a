@@ -1,0 +1,178 @@
+!<arch>
+__.PKGDEF       0           0     0     644     24870     `
+go object linux amd64 go1.6.2 X:none
+build id "8f15feb95979d04f5beee0ece8a3d45f40918ce5"
+
+$$
+package model
+	import time "time"
+	import websocket "github.com/gorilla/websocket"
+	type @"".Ids []string
+	type @"".Message struct { TypeMsg string "json:\"type\""; Email string "json:\"email\""; Username string "json:\"username\""; Message string "json:\"message\""; From string "json:\"from\""; Target string "json:\"to_address\""; Contact @"".Ids "json:\"contact\"" }
+	import net "net" // indirect
+	type @"net".Addr interface { Network() (? string); String() (? string) }
+	type @"time".zone struct { @"time".name string; @"time".offset int; @"time".isDST bool }
+	type @"time".zoneTrans struct { @"time".when int64; @"time".index uint8; @"time".isstd bool; @"time".isutc bool }
+	type @"time".Location struct { @"time".name string; @"time".zone []@"time".zone; @"time".tx []@"time".zoneTrans; @"time".cacheStart int64; @"time".cacheEnd int64; @"time".cacheZone *@"time".zone }
+	func (@"time".lÂ·2 *@"time".Location "esc:0x22") String () (? string)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x1") @"time".firstZoneUsed () (? bool)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x12") @"time".get () (? *@"time".Location)
+	func (@"time".lÂ·6 *@"time".Location "esc:0x32") @"time".lookup (@"time".secÂ·7 int64) (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".isDSTÂ·3 bool, @"time".startÂ·4 int64, @"time".endÂ·5 int64)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x1") @"time".lookupFirstZone () (? int)
+	func (@"time".lÂ·4 *@"time".Location "esc:0x1") @"time".lookupName (@"time".nameÂ·5 string "esc:0x1", @"time".unixÂ·6 int64) (@"time".offsetÂ·1 int, @"time".isDSTÂ·2 bool, @"time".okÂ·3 bool)
+	type @"time".Duration int64
+	func (@"time".dÂ·2 @"time".Duration) Hours () (? float64) { var @"time".hourÂ·3 @"time".Duration; ; @"time".hourÂ·3 = @"time".dÂ·2 / @"time".Duration(0x34630b8a000); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x34630b8a000); return float64(@"time".hourÂ·3) + float64(@"time".nsecÂ·4) * float64(8190022623310637111963488201822504381538623676021880892417778544696899264837610290203272971060556344039023584360473938041055625214280336402169897364226048p-553) }
+	func (@"time".dÂ·2 @"time".Duration) Minutes () (? float64) { var @"time".minÂ·3 @"time".Duration; ; @"time".minÂ·3 = @"time".dÂ·2 / @"time".Duration(0xdf8475800); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0xdf8475800); return float64(@"time".minÂ·3) + float64(@"time".nsecÂ·4) * float64(7678146209353722106395056769533233877065564876941352542109479049699919628723768656821910653339403201031675627614471533358284117434246264392176261853609984p-547) }
+	func (@"time".dÂ·2 @"time".Duration) Nanoseconds () (? int64) { return int64(@"time".dÂ·2) }
+	func (@"time".dÂ·2 @"time".Duration) Seconds () (? float64) { var @"time".secÂ·3 @"time".Duration; ; @"time".secÂ·3 = @"time".dÂ·2 / @"time".Duration(0x3b9aca00); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x3b9aca00); return float64(@"time".secÂ·3) + float64(@"time".nsecÂ·4) * float64(7198262071269114660816079141112770740375861891461678802759824945047098083990024106014198994535558872472104883612039846078596891298747423852523262413111296p-541) }
+	func (@"time".dÂ·2 @"time".Duration) String () (? string)
+	type @"time".Month int
+	func (@"time".mÂ·2 @"time".Month) String () (? string) { return @"time".months[@"time".mÂ·2 - @"time".Month(0x1)] }
+	type @"time".Weekday int
+	func (@"time".dÂ·2 @"time".Weekday) String () (? string) { return @"time".days[@"time".dÂ·2] }
+	type @"time".Time struct { @"time".sec int64; @"time".nsec int32; @"time".loc *@"time".Location }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Add (@"time".dÂ·3 @"time".Duration) (? @"time".Time) { @"time".tÂ·2.@"time".sec += int64(@"time".dÂ·3 / @"time".Duration(0x3b9aca00)); var @"time".nsecÂ·4 int32; ; @"time".nsecÂ·4 = int32(@"time".tÂ·2.@"time".nsec) + int32(@"time".dÂ·3 % @"time".Duration(0x3b9aca00)); if @"time".nsecÂ·4 >= int32(0x3b9aca00) { @"time".tÂ·2.@"time".sec++; @"time".nsecÂ·4 -= int32(0x3b9aca00) } else { if @"time".nsecÂ·4 < int32(0x0) { @"time".tÂ·2.@"time".sec--; @"time".nsecÂ·4 += int32(0x3b9aca00) } }; @"time".tÂ·2.@"time".nsec = @"time".nsecÂ·4; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") AddDate (@"time".yearsÂ·3 int, @"time".monthsÂ·4 int, @"time".daysÂ·5 int) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") After (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec > @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec > @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") AppendFormat (@"time".bÂ·3 []byte "esc:0x1a", @"time".layoutÂ·4 string "esc:0x9") (? []byte)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Before (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec < @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec < @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·4 @"time".Time "esc:0x1") Clock () (@"time".hourÂ·1 int, @"time".minÂ·2 int, @"time".secÂ·3 int)
+	func (@"time".tÂ·4 @"time".Time "esc:0x1") Date () (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Day () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Equal (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec == @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") Format (@"time".layoutÂ·3 string "esc:0x9") (? string)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") GobDecode (@"time".dataÂ·3 []byte "esc:0x1") (? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") GobEncode () (? []byte, ? error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Hour () (? int)
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") ISOWeek () (@"time".yearÂ·1 int, @"time".weekÂ·2 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") In (@"time".locÂ·3 *@"time".Location "esc:0x12") (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") IsZero () (? bool) { return @"time".tÂ·2.@"time".sec == int64(0x0) && @"time".tÂ·2.@"time".nsec == int32(0x0) }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Local () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".Local; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Location () (? *@"time".Location) { var @"time".lÂ·3 *@"time".Location; ; @"time".lÂ·3 = @"time".tÂ·2.@"time".loc; if @"time".lÂ·3 == nil { @"time".lÂ·3 = @"time".UTC }; return @"time".lÂ·3 }
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") MarshalBinary () (? []byte, ? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x9") MarshalJSON () (? []byte, ? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x9") MarshalText () (? []byte, ? error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Minute () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Month () (? @"time".Month)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Nanosecond () (? int) { return int(@"time".tÂ·2.@"time".nsec) }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Round (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Second () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") String () (? string)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Sub (@"time".uÂ·3 @"time".Time "esc:0x1") (? @"time".Duration)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Truncate (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") UTC () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".UTC; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Unix () (? int64) { return @"time".tÂ·2.@"time".sec + int64(-0xe7791f700) }
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") UnixNano () (? int64) { return (@"time".tÂ·2.@"time".sec + int64(-0xe7791f700)) * int64(0x3b9aca00) + int64(@"time".tÂ·2.@"time".nsec) }
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalBinary (@"time".dataÂ·3 []byte "esc:0x1") (? error)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalJSON (@"time".dataÂ·3 []byte "esc:0x1") (@"time".errÂ·1 error)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalText (@"time".dataÂ·3 []byte "esc:0x1") (@"time".errÂ·1 error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Weekday () (? @"time".Weekday)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Year () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") YearDay () (? int)
+	func (@"time".tÂ·3 @"time".Time "esc:0x32") Zone () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") @"time".abs () (? uint64)
+	func (@"time".tÂ·5 @"time".Time "esc:0x1") @"time".date (@"time".fullÂ·6 bool) (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int, @"time".ydayÂ·4 int)
+	func (@"time".tÂ·4 @"time".Time "esc:0x32") @"time".locabs () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".absÂ·3 uint64)
+	type @"net".Conn interface { Close() (? error); LocalAddr() (? @"net".Addr); Read(@"net".b []byte) (@"net".n int, @"net".err error); RemoteAddr() (? @"net".Addr); SetDeadline(@"net".t @"time".Time) (? error); SetReadDeadline(@"net".t @"time".Time) (? error); SetWriteDeadline(@"net".t @"time".Time) (? error); Write(@"net".b []byte) (@"net".n int, @"net".err error) }
+	import io "io" // indirect
+	type @"io".WriteCloser interface { Close() (? error); Write(@"io".p []byte) (@"io".n int, @"io".err error) }
+	import sync "sync" // indirect
+	type @"sync".Mutex struct { @"sync".state int32; @"sync".sema uint32 }
+	func (@"sync".mÂ·1 *@"sync".Mutex) Lock ()
+	func (@"sync".mÂ·1 *@"sync".Mutex) Unlock ()
+	type @"io".ReadCloser interface { Close() (? error); Read(@"io".p []byte) (@"io".n int, @"io".err error) }
+	import bufio "bufio" // indirect
+	type @"io".Reader interface { Read(@"io".p []byte) (@"io".n int, @"io".err error) }
+	type @"io".Writer interface { Write(@"io".p []byte) (@"io".n int, @"io".err error) }
+	type @"bufio".Reader struct { @"bufio".buf []byte; @"bufio".rd @"io".Reader; @"bufio".r int; @"bufio".w int; @"bufio".err error; @"bufio".lastByte int; @"bufio".lastRuneSize int }
+	func (@"bufio".bÂ·2 *@"bufio".Reader "esc:0x1") Buffered () (? int) { return @"bufio".bÂ·2.@"bufio".w - @"bufio".bÂ·2.@"bufio".r }
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x10a") Discard (@"bufio".nÂ·4 int) (@"bufio".discardedÂ·1 int, @"bufio".errÂ·2 error)
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x12a") Peek (@"bufio".nÂ·4 int) (? []byte, ? error)
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x10a") Read (@"bufio".pÂ·4 []byte) (@"bufio".nÂ·1 int, @"bufio".errÂ·2 error)
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x10a") ReadByte () (@"bufio".cÂ·1 byte, @"bufio".errÂ·2 error)
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x10a") ReadBytes (@"bufio".delimÂ·4 byte) (@"bufio".lineÂ·1 []byte, @"bufio".errÂ·2 error)
+	func (@"bufio".bÂ·4 *@"bufio".Reader "esc:0x82a") ReadLine () (@"bufio".lineÂ·1 []byte, @"bufio".isPrefixÂ·2 bool, @"bufio".errÂ·3 error)
+	func (@"bufio".bÂ·4 *@"bufio".Reader "esc:0x80a") ReadRune () (@"bufio".rÂ·1 rune, @"bufio".sizeÂ·2 int, @"bufio".errÂ·3 error)
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x12a") ReadSlice (@"bufio".delimÂ·4 byte) (@"bufio".lineÂ·1 []byte, @"bufio".errÂ·2 error)
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x10a") ReadString (@"bufio".delimÂ·4 byte) (@"bufio".lineÂ·1 string, @"bufio".errÂ·2 error)
+	func (@"bufio".bÂ·1 *@"bufio".Reader "esc:0x9") Reset (@"bufio".rÂ·2 @"io".Reader) { @"bufio".bÂ·1.@"bufio".reset(@"bufio".bÂ·1.@"bufio".buf, @"bufio".rÂ·2) }
+	func (@"bufio".bÂ·2 *@"bufio".Reader "esc:0x1") UnreadByte () (? error) { if @"bufio".bÂ·2.@"bufio".lastByte < int(0x0) || @"bufio".bÂ·2.@"bufio".r == int(0x0) && @"bufio".bÂ·2.@"bufio".w > int(0x0) { return @"bufio".ErrInvalidUnreadByte }; if @"bufio".bÂ·2.@"bufio".r > int(0x0) { @"bufio".bÂ·2.@"bufio".r-- } else { @"bufio".bÂ·2.@"bufio".w = int(0x1) }; @"bufio".bÂ·2.@"bufio".buf[@"bufio".bÂ·2.@"bufio".r] = byte(@"bufio".bÂ·2.@"bufio".lastByte); @"bufio".bÂ·2.@"bufio".lastByte = int(-0x1); @"bufio".bÂ·2.@"bufio".lastRuneSize = int(-0x1); return nil }
+	func (@"bufio".bÂ·2 *@"bufio".Reader "esc:0x1") UnreadRune () (? error) { if @"bufio".bÂ·2.@"bufio".lastRuneSize < int(0x0) || @"bufio".bÂ·2.@"bufio".r < @"bufio".bÂ·2.@"bufio".lastRuneSize { return @"bufio".ErrInvalidUnreadRune }; @"bufio".bÂ·2.@"bufio".r -= @"bufio".bÂ·2.@"bufio".lastRuneSize; @"bufio".bÂ·2.@"bufio".lastByte = int(-0x1); @"bufio".bÂ·2.@"bufio".lastRuneSize = int(-0x1); return nil }
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x10a") WriteTo (@"bufio".wÂ·4 @"io".Writer) (@"bufio".nÂ·1 int64, @"bufio".errÂ·2 error)
+	func (@"bufio".bÂ·1 *@"bufio".Reader "esc:0x9") @"bufio".fill ()
+	func (@"bufio".bÂ·2 *@"bufio".Reader "esc:0x22") @"bufio".readErr () (? error) { var @"bufio".errÂ·3 error; ; @"bufio".errÂ·3 = @"bufio".bÂ·2.@"bufio".err; @"bufio".bÂ·2.@"bufio".err = nil; return @"bufio".errÂ·3 }
+	func (@"bufio".bÂ·1 *@"bufio".Reader "esc:0x1") @"bufio".reset (@"bufio".bufÂ·2 []byte, @"bufio".rÂ·3 @"io".Reader) { *@"bufio".bÂ·1 = (@"bufio".Reader{ @"bufio".buf:@"bufio".bufÂ·2, @"bufio".rd:@"bufio".rÂ·3, @"bufio".lastByte:int(-0x1), @"bufio".lastRuneSize:int(-0x1) }) }
+	func (@"bufio".bÂ·3 *@"bufio".Reader "esc:0x9") @"bufio".writeBuf (@"bufio".wÂ·4 @"io".Writer) (? int64, ? error)
+	type @"github.com/gorilla/websocket".messageReader struct { @"github.com/gorilla/websocket".c *@"github.com/gorilla/websocket".Conn }
+	func (@"github.com/gorilla/websocket".rÂ·2 *@"github.com/gorilla/websocket".messageReader "esc:0x1") Close () (? error) { return nil }
+	func (@"github.com/gorilla/websocket".rÂ·3 *@"github.com/gorilla/websocket".messageReader "esc:0x18a") Read (@"github.com/gorilla/websocket".bÂ·4 []byte) (? int, ? error)
+	type @"sync".Once struct { @"sync".m @"sync".Mutex; @"sync".done uint32 }
+	func (@"sync".oÂ·1 *@"sync".Once) Do (@"sync".fÂ·2 func() "esc:0x1")
+	type @"github.com/gorilla/websocket".preparedFrame struct { @"github.com/gorilla/websocket".once @"sync".Once; @"github.com/gorilla/websocket".data []byte }
+	type @"github.com/gorilla/websocket".prepareKey struct { @"github.com/gorilla/websocket".isServer bool; @"github.com/gorilla/websocket".compress bool; @"github.com/gorilla/websocket".compressionLevel int }
+	type @"github.com/gorilla/websocket".PreparedMessage struct { @"github.com/gorilla/websocket".messageType int; @"github.com/gorilla/websocket".data []byte; @"github.com/gorilla/websocket".err error; @"github.com/gorilla/websocket".mu @"sync".Mutex; @"github.com/gorilla/websocket".frames map[@"github.com/gorilla/websocket".prepareKey]*@"github.com/gorilla/websocket".preparedFrame }
+	func (@"github.com/gorilla/websocket".pmÂ·4 *@"github.com/gorilla/websocket".PreparedMessage) @"github.com/gorilla/websocket".frame (@"github.com/gorilla/websocket".keyÂ·5 @"github.com/gorilla/websocket".prepareKey) (? int, ? []byte, ? error)
+	type @"github.com/gorilla/websocket".Conn struct { @"github.com/gorilla/websocket".conn @"net".Conn; @"github.com/gorilla/websocket".isServer bool; @"github.com/gorilla/websocket".subprotocol string; @"github.com/gorilla/websocket".mu chan bool; @"github.com/gorilla/websocket".writeBuf []byte; @"github.com/gorilla/websocket".writeDeadline @"time".Time; @"github.com/gorilla/websocket".writer @"io".WriteCloser; @"github.com/gorilla/websocket".isWriting bool; @"github.com/gorilla/websocket".writeErrMu @"sync".Mutex; @"github.com/gorilla/websocket".writeErr error; @"github.com/gorilla/websocket".enableWriteCompression bool; @"github.com/gorilla/websocket".compressionLevel int; @"github.com/gorilla/websocket".newCompressionWriter func(? @"io".WriteCloser, ? int) (? @"io".WriteCloser); @"github.com/gorilla/websocket".reader @"io".ReadCloser; @"github.com/gorilla/websocket".readErr error; @"github.com/gorilla/websocket".br *@"bufio".Reader; @"github.com/gorilla/websocket".readRemaining int64; @"github.com/gorilla/websocket".readFinal bool; @"github.com/gorilla/websocket".readLength int64; @"github.com/gorilla/websocket".readLimit int64; @"github.com/gorilla/websocket".readMaskPos int; @"github.com/gorilla/websocket".readMaskKey [4]byte; @"github.com/gorilla/websocket".handlePong func(? string) (? error); @"github.com/gorilla/websocket".handlePing func(? string) (? error); @"github.com/gorilla/websocket".handleClose func(? int, ? string) (? error); @"github.com/gorilla/websocket".readErrCount int; @"github.com/gorilla/websocket".messageReader *@"github.com/gorilla/websocket".messageReader; @"github.com/gorilla/websocket".readDecompress bool; @"github.com/gorilla/websocket".newDecompressionReader func(? @"io".Reader) (? @"io".ReadCloser) }
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x9") Close () (? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x22") CloseHandler () (? func(@"github.com/gorilla/websocket".code int, @"github.com/gorilla/websocket".text string) (? error)) { return @"github.com/gorilla/websocket".cÂ·2.@"github.com/gorilla/websocket".handleClose }
+	func (@"github.com/gorilla/websocket".cÂ·1 *@"github.com/gorilla/websocket".Conn "esc:0x1") EnableWriteCompression (@"github.com/gorilla/websocket".enableÂ·2 bool) { @"github.com/gorilla/websocket".cÂ·1.@"github.com/gorilla/websocket".enableWriteCompression = @"github.com/gorilla/websocket".enableÂ·2 }
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x9") LocalAddr () (? @"net".Addr)
+	func (@"github.com/gorilla/websocket".cÂ·4 *@"github.com/gorilla/websocket".Conn) NextReader () (@"github.com/gorilla/websocket".messageTypeÂ·1 int, @"github.com/gorilla/websocket".rÂ·2 @"io".Reader, @"github.com/gorilla/websocket".errÂ·3 error)
+	func (@"github.com/gorilla/websocket".cÂ·3 *@"github.com/gorilla/websocket".Conn) NextWriter (@"github.com/gorilla/websocket".messageTypeÂ·4 int) (? @"io".WriteCloser, ? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x22") PingHandler () (? func(@"github.com/gorilla/websocket".appData string) (? error)) { return @"github.com/gorilla/websocket".cÂ·2.@"github.com/gorilla/websocket".handlePing }
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x22") PongHandler () (? func(@"github.com/gorilla/websocket".appData string) (? error)) { return @"github.com/gorilla/websocket".cÂ·2.@"github.com/gorilla/websocket".handlePong }
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) ReadJSON (@"github.com/gorilla/websocket".vÂ·3 interface {}) (? error)
+	func (@"github.com/gorilla/websocket".cÂ·4 *@"github.com/gorilla/websocket".Conn) ReadMessage () (@"github.com/gorilla/websocket".messageTypeÂ·1 int, @"github.com/gorilla/websocket".pÂ·2 []byte, @"github.com/gorilla/websocket".errÂ·3 error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x9") RemoteAddr () (? @"net".Addr)
+	func (@"github.com/gorilla/websocket".cÂ·1 *@"github.com/gorilla/websocket".Conn) SetCloseHandler (@"github.com/gorilla/websocket".hÂ·2 func(@"github.com/gorilla/websocket".code int, @"github.com/gorilla/websocket".text string) (? error))
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x1") SetCompressionLevel (@"github.com/gorilla/websocket".levelÂ·3 int) (? error) { if !@"github.com/gorilla/websocket".isValidCompressionLevel(@"github.com/gorilla/websocket".levelÂ·3) { return @"errors".New(string("websocket: invalid compression level")) }; @"github.com/gorilla/websocket".cÂ·2.@"github.com/gorilla/websocket".compressionLevel = @"github.com/gorilla/websocket".levelÂ·3; return nil }
+	func (@"github.com/gorilla/websocket".cÂ·1 *@"github.com/gorilla/websocket".Conn) SetPingHandler (@"github.com/gorilla/websocket".hÂ·2 func(@"github.com/gorilla/websocket".appData string) (? error))
+	func (@"github.com/gorilla/websocket".cÂ·1 *@"github.com/gorilla/websocket".Conn "esc:0x1") SetPongHandler (@"github.com/gorilla/websocket".hÂ·2 func(@"github.com/gorilla/websocket".appData string) (? error))
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x9") SetReadDeadline (@"github.com/gorilla/websocket".tÂ·3 @"time".Time) (? error)
+	func (@"github.com/gorilla/websocket".cÂ·1 *@"github.com/gorilla/websocket".Conn "esc:0x1") SetReadLimit (@"github.com/gorilla/websocket".limitÂ·2 int64) { @"github.com/gorilla/websocket".cÂ·1.@"github.com/gorilla/websocket".readLimit = @"github.com/gorilla/websocket".limitÂ·2 }
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x1") SetWriteDeadline (@"github.com/gorilla/websocket".tÂ·3 @"time".Time) (? error) { @"github.com/gorilla/websocket".cÂ·2.@"github.com/gorilla/websocket".writeDeadline = @"github.com/gorilla/websocket".tÂ·3; return nil }
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x22") Subprotocol () (? string) { return @"github.com/gorilla/websocket".cÂ·2.@"github.com/gorilla/websocket".subprotocol }
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn "esc:0x22") UnderlyingConn () (? @"net".Conn) { return @"github.com/gorilla/websocket".cÂ·2.@"github.com/gorilla/websocket".conn }
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) WriteControl (@"github.com/gorilla/websocket".messageTypeÂ·3 int, @"github.com/gorilla/websocket".dataÂ·4 []byte "esc:0x9", @"github.com/gorilla/websocket".deadlineÂ·5 @"time".Time) (? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) WriteJSON (@"github.com/gorilla/websocket".vÂ·3 interface {}) (? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) WriteMessage (@"github.com/gorilla/websocket".messageTypeÂ·3 int, @"github.com/gorilla/websocket".dataÂ·4 []byte) (? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) WritePreparedMessage (@"github.com/gorilla/websocket".pmÂ·3 *@"github.com/gorilla/websocket".PreparedMessage) (? error)
+	func (@"github.com/gorilla/websocket".cÂ·3 *@"github.com/gorilla/websocket".Conn) @"github.com/gorilla/websocket".advanceFrame () (? int, ? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) @"github.com/gorilla/websocket".handleProtocolError (@"github.com/gorilla/websocket".messageÂ·3 string "esc:0x9") (? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) @"github.com/gorilla/websocket".prepWrite (@"github.com/gorilla/websocket".messageTypeÂ·3 int) (? error)
+	func (@"github.com/gorilla/websocket".cÂ·3 *@"github.com/gorilla/websocket".Conn "esc:0x1ba") @"github.com/gorilla/websocket".read (@"github.com/gorilla/websocket".nÂ·4 int) (? []byte, ? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) @"github.com/gorilla/websocket".write (@"github.com/gorilla/websocket".frameTypeÂ·3 int, @"github.com/gorilla/websocket".deadlineÂ·4 @"time".Time, @"github.com/gorilla/websocket".bufsÂ·5 ...[]byte "esc:0x9") (? error)
+	func (@"github.com/gorilla/websocket".cÂ·2 *@"github.com/gorilla/websocket".Conn) @"github.com/gorilla/websocket".writeFatal (@"github.com/gorilla/websocket".errÂ·3 error) (? error)
+	type @"".User struct { Id string; Connection *@"github.com/gorilla/websocket".Conn; TimeIn @"time".Time; Contact @"".Ids }
+	func @"".NewUser (@"".idÂ·2 string "esc:0x12", @"".connectionÂ·3 *@"github.com/gorilla/websocket".Conn "esc:0x12", @"".timeinÂ·4 @"time".Time "esc:0x12", @""._IdsÂ·5 @"".Ids "esc:0x12") (? @"".User) {  var @"".userÂ·6 @"".User; @"".userÂ·6 = (@"".User{ Id:@"".idÂ·2, Connection:@"".connectionÂ·3, TimeIn:@"".timeinÂ·4, Contact:@""._IdsÂ·5 }); return @"".userÂ·6 }
+	func @"".init ()
+	var @"time".months [12]string
+	var @"time".days [7]string
+	var @"time".Local *@"time".Location
+	var @"time".UTC *@"time".Location
+	var @"bufio".ErrInvalidUnreadByte error
+	var @"bufio".ErrInvalidUnreadRune error
+	func @"github.com/gorilla/websocket".isValidCompressionLevel (@"github.com/gorilla/websocket".levelÂ·2 int) (? bool) { return int(-0x2) <= @"github.com/gorilla/websocket".levelÂ·2 && @"github.com/gorilla/websocket".levelÂ·2 <= int(0x9) }
+	import errors "errors" // indirect
+	func @"errors".New (@"errors".textÂ·2 string) (? error) { return (&@"errors".errorString{ @"errors".s:@"errors".textÂ·2 }) }
+	type @"errors".errorString struct { @"errors".s string }
+	func (@"errors".eÂ·2 *@"errors".errorString "esc:0x22") Error () (? string) { return @"errors".eÂ·2.@"errors".s }
+
+$$
+_go_.o          0           0     0     644     8669      `
+go object linux amd64 go1.6.2 X:none
+
+!
+  go13ldtime.a<github.com/gorilla/websocket.a ş"".NewUser  À  ÀHƒìHH¼$˜   WÀè    GøH<$WÀè    GøH‹\$PH‰$H‹\$XH‰\$H‹\$`H‰\$H‹\$hH‰\$‹\$p‰\$ H‹\$xH‰\$(H‹œ$€   H‰\$0H‹œ$ˆ   H‰\$8H‹œ$   H‰\$@H4$H¼$˜   è    H¥HƒÄHÃ º  runtime.duffzero   @º  runtime.duffzero   ª  runtime.duffcopy      "".user type."".User "".~r4 type."".User ""._Ids `type."".Ids "".timein 0type.time.Time "".connection  Ntype.*github.com/gorilla/websocket.Conn 
+"".id  type.string ›   &p  TgclocalsÂ·c8472a2e94490f9c6dde028c9c43d1b7 TgclocalsÂ·6d07ab0a37c299682f1d85b92cb6cfd1   h/home/kevin/project/notyet-backend/src/model/User.goş"".init      dH‹%    H;av9¶    €û t¶    €ûuÃè    Æ    è    è    Æ    Ãè    ë±Ì
+      $  "".initdoneÂ·   <  "".initdoneÂ·   R  "runtime.throwinit   b "".initdoneÂ·   n  time.init   x  Bgithub.com/gorilla/websocket.init   „ "".initdoneÂ·   ’  0runtime.morestack_noctxt        P P 8P 
+ (( TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb   h/home/kevin/project/notyet-backend/src/model/User.goşTgclocalsÂ·6d07ab0a37c299682f1d85b92cb6cfd1      	        şTgclocalsÂ·c8472a2e94490f9c6dde028c9c43d1b7         e    şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           ş>"".initdoneÂ·  type.uint8   ş"".NewUserÂ·f              "".NewUser   ş"".initÂ·f              "".init   ş"runtime.gcbits.01    ş4go.string.hdr."*model.Ids"             
+          ,go.string."*model.Ids"   ş,go.string."*model.Ids"    *model.Ids  ştype.*"".Ids                  åpá 6                                                
+0   runtime.algarray   @  "runtime.gcbits.01   P  4go.string.hdr."*model.Ids"   p  *go.weak.type.**"".Ids   €  type."".Ids   ş2go.string.hdr."model.Ids"             	          *go.string."model.Ids"   ş*go.string."model.Ids"    model.Ids  ş&go.string.hdr."Ids"                       go.string."Ids"   şgo.string."Ids"   Ids  ş*go.string.hdr."model"                       "go.string."model"   ş"go.string."model"   model  ş"go.importpath."".                       "go.string."model"   ştype."".Ids  à  à              ßH„`                                                                                         0   runtime.algarray   @  "runtime.gcbits.01   P  2go.string.hdr."model.Ids"   p  type.*"".Ids   €  type.string   ` type."".Ids     &go.string.hdr."Ids"      "go.importpath."".   °à type."".Ids   ş6go.string.hdr."*model.User"                       .go.string."*model.User"   ş.go.string."*model.User"    *model.User  ştype.*"".User                  ¨–v¶ 6                                                
+0   runtime.algarray   @  "runtime.gcbits.01   P  6go.string.hdr."*model.User"   p  ,go.weak.type.**"".User   €  type."".User   ş"runtime.gcbits.65   e ş4go.string.hdr."model.User"             
+          ,go.string."model.User"   ş,go.string."model.User"    model.User  ş$go.string.hdr."Id"                       go.string."Id"   şgo.string."Id"   Id  ş4go.string.hdr."Connection"             
+          ,go.string."Connection"   ş,go.string."Connection"    Connection  ş,go.string.hdr."TimeIn"                       $go.string."TimeIn"   ş$go.string."TimeIn"   TimeIn  ş.go.string.hdr."Contact"                       &go.string."Contact"   ş&go.string."Contact"   Contact  ş(go.string.hdr."User"                        go.string."User"   ş go.string."User"   
+User  ştype."".User  À  ÀH       8       q$ßı                                                                                                                                                                                                                     0                                               "0à  runtime.algarray   @  "runtime.gcbits.65   P  4go.string.hdr."model.User"   p  type.*"".User   €° type."".User   °  $go.string.hdr."Id"   Ğ  type.string   €  4go.string.hdr."Connection"      Ntype.*github.com/gorilla/websocket.Conn   Ğ  ,go.string.hdr."TimeIn"   ğ  type.time.Time      .go.string.hdr."Contact"   À  type."".Ids   `ğ type."".User   ğ  (go.string.hdr."User"   €  "go.importpath."".   À type."".User   ş<go.string.hdr."*model.Message"                       4go.string."*model.Message"   ş4go.string."*model.Message"    *model.Message  ş type.*"".Message                  ?ÒŒ@ 6                                                
+0   runtime.algarray   @  "runtime.gcbits.01   P  <go.string.hdr."*model.Message"   p  2go.weak.type.**"".Message   €  type."".Message   ş&runtime.gcbits.5515   U ş:go.string.hdr."model.Message"                       2go.string."model.Message"   ş2go.string."model.Message"    model.Message  ş.go.string.hdr."TypeMsg"                       &go.string."TypeMsg"   ş&go.string."TypeMsg"   TypeMsg  ş:go.string.hdr."json:\"type\""                       2go.string."json:\"type\""   ş2go.string."json:\"type\""    json:"type"  ş*go.string.hdr."Email"                       "go.string."Email"   ş"go.string."Email"   Email  ş<go.string.hdr."json:\"email\""                       4go.string."json:\"email\""   ş4go.string."json:\"email\""    json:"email"  ş0go.string.hdr."Username"                       (go.string."Username"   ş(go.string."Username"    Username  şBgo.string.hdr."json:\"username\""                       :go.string."json:\"username\""   ş:go.string."json:\"username\""     json:"username"  ş.go.string.hdr."Message"                       &go.string."Message"   ş&go.string."Message"   Message  ş@go.string.hdr."json:\"message\""                       8go.string."json:\"message\""   ş8go.string."json:\"message\""    json:"message"  ş(go.string.hdr."From"                        go.string."From"   ş go.string."From"   
+From  ş:go.string.hdr."json:\"from\""                       2go.string."json:\"from\""   ş2go.string."json:\"from\""    json:"from"  ş,go.string.hdr."Target"                       $go.string."Target"   ş$go.string."Target"   Target  şFgo.string.hdr."json:\"to_address\""                       >go.string."json:\"to_address\""   ş>go.string."json:\"to_address\"" 0  $json:"to_address"  ş@go.string.hdr."json:\"contact\""                       8go.string."json:\"contact\""   ş8go.string."json:\"contact\""    json:"contact"  ştype."".Message  °  °x       h       G=±É                                                                                                                                                                                                                      0                                       @                                       P                                       `                                               <0à  runtime.algarray   @  &runtime.gcbits.5515   P  :go.string.hdr."model.Message"   p   type.*"".Message   €° type."".Message   °  .go.string.hdr."TypeMsg"   Ğ  type.string   à  :go.string.hdr."json:\"type\""   €  *go.string.hdr."Email"      type.string   °  <go.string.hdr."json:\"email\""   Ğ  0go.string.hdr."Username"   ğ  type.string   €  Bgo.string.hdr."json:\"username\""      .go.string.hdr."Message"   À  type.string   Ğ  @go.string.hdr."json:\"message\""   ğ  (go.string.hdr."From"     type.string      :go.string.hdr."json:\"from\""   À  ,go.string.hdr."Target"   à  type.string   ğ  Fgo.string.hdr."json:\"to_address\""     .go.string.hdr."Contact"   °  type."".Ids   À  @go.string.hdr."json:\"contact\""   `à type."".Message   à  .go.string.hdr."Message"   ğ  "go.importpath."".   €° type."".Message   ş(go.string.hdr."time"                        go.string."time"   ş go.string."time"   
+time  ş&go.importpath.time.                        go.string."time"   şXgo.string.hdr."github.com/gorilla/websocket"                       Pgo.string."github.com/gorilla/websocket"   şPgo.string."github.com/gorilla/websocket" @  :github.com/gorilla/websocket  şVgo.importpath.github.com/gorilla/websocket.                       Pgo.string."github.com/gorilla/websocket"   ÿÿgo13ld 
